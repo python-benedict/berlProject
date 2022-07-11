@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detailed User</title>
+</head>
+<body>
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="fullname"><br>
+        <input type="email" name="email"><br>
+        <input type="number" name="studentId"><br>
+        <label for="gender">What gender are you</label>
+        <select name="gender">
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select>
+        <label for="rootype">What type of room did you choose</label>
+        <select name="roomtype" >
+            <option value="FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE">FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE</option>
+            <option value="TWO IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE">TWO IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE</option>
+            <option value="TWO IN A ROOM SELF-CONTAIN WITH KITCHEN AND HALL">TWO IN A ROOM SELF-CONTAIN WITH KITCHEN AND HALL</option>
+            <option value="TWO IN A ROOM SELF-CONTAIN WITH CHAMBER AND HALL">TWO IN A ROOM SELF-CONTAIN WITH CHAMBER AND HALL</option>
+        </select>
+        <label for="room_choosing_status">How do you want to choose your room</label>
+        <select name="room_choosing_status" >
+            <option value="Choose for me">Choose for me</option>
+            <option value="Choose it myself">Choose it myself</option>
+        </select>
+        <label for="bio">Tells us about you</label>
+        <textarea name="bio"cols="30" rows="10"></textarea><br>
+        <input type="submit" name="submit">
+    </form>
+</body>
+</html>
