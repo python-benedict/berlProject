@@ -20,8 +20,8 @@ class DetailedUser(BaseTimeModel):
     MRoom3mw = "TWO IN A ROOM SELF-CONTAIN WITH KITCHEN AND HALL"
     MRoom4mw = "TWO IN A ROOM SELF-CONTAIN WITH CHAMBER AND HALL"
 
-    choose_myself = 'Automatic room allocation'
-    choose_for_me = 'Manual room Selection'
+    choose_myself = 'Manual room Selection'
+    choose_for_me = 'Automatic room allocation'
     
     ROOMTYPE = [
         (MRoom1mw, MRoom1mw),
