@@ -7,25 +7,27 @@
     <title>Detailed User</title>
 </head>
 <body>
-    <form method="post">
+    <form method="POST">
         {% csrf_token %}
         <label for="fullname">Enter Your Full Name:</label><br><br>
-        <input type="text" name="fullname" placeholder="Enter Full Name"><br>
+        <input type="text" name="fullname" placeholder="Enter Full Name" required><br>
         <label for="email">Enter Your Email</label><br><br>
-        <input type="email" name="email" placeholder="Enter Email"><br>
+        <input type="email" required name="email" placeholder="Enter Email"><br>
         <label for="studentId">Enter your Student ID </label><br><br>
-        <input type="number" name="studentId" placeholder="Enter Student Id"><br>
+        <input type="number" required name="studentId" placeholder="Enter Student Id"><br>
         <label for="gender">What gender are you</label><br><br>
-        <select name="gender">
+        <select name="gender" required>
+            <option value="">select gender</option>
             <option value="Female">Female</option>
             <option value="Male">Male</option>
         </select>
         <label for="rootype">What type of room did you choose</label><br><br>
-        <select name="roomtype" >
-            <option value="FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE">FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE</option>
-            <option value="TWO IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE">TWO IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE</option>
-            <option value="TWO IN A ROOM SELF-CONTAIN WITH KITCHEN AND HALL">TWO IN A ROOM SELF-CONTAIN WITH KITCHEN AND HALL</option>
-            <option value="TWO IN A ROOM SELF-CONTAIN WITH CHAMBER AND HALL">TWO IN A ROOM SELF-CONTAIN WITH CHAMBER AND HALL</option>
+        <select name="roomId" required>
+            <option value="">select room</option>
+            {% for room in rooms %}
+            <option value="{{room.id}}">{{ room.name }}</option>
+            {% endfor %}
+            
         </select>
         <label for="room_choosing_status">How do you want to choose your room</label><br><br>
         <select name="room_choosing_status" >
@@ -34,7 +36,7 @@
         </select>
         <label for="bio">Tells us about you</label><br><br>
         <textarea name="bio"cols="30" rows="10"></textarea><br><br>
-        <input type="submit" name="submit">
+        <button type="submit">Submit</button>
     </form>
 </body>
 </html>
