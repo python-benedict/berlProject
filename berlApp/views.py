@@ -9,6 +9,7 @@ def detaileduser(request):
         form = DetailedUserForm(request.POST)
         if form.is_valid():
             form.save()
-        
-
-    return render(request, 'detaileduser.html')
+    context ={
+        'form':form
+    }
+    return render(request, 'detaileduser.html', context)
