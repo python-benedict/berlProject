@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import *
 from django.contrib import messages
 from .forms import DetailedUserForm
@@ -17,9 +17,10 @@ def detaileduser(request):
                     messages.success(request, "Successfully allocated to a room")
                 else:
                     messages.info(request, 'We were not able to find a perfect room for you so manually choose one')
+                    return redirect('chooseroom') 
             #Redirecting user to manual room selection page
             else:
-                pass        
+                pass   
 
 
     context ={
@@ -28,10 +29,8 @@ def detaileduser(request):
     return render(request, 'detaileduser.html', context)
 
 def chooseroom(request):
-    rooms = Room.objects.all().iterator(chunk_size=50)
-    for room in rooms:
-        if room.full == False:
-            room_available = room
-
-    context={'room':room}
+    rooms = Room.objects.filter(full=False).iterator(chunk_size=50)
+    context={'room':rooms}
+    if request.method == 'POST':
+        roomchoose = request.POST['roomchoose']
     return render(request, 'chooseroom.html', context)
