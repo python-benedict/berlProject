@@ -55,7 +55,7 @@ class Room(BaseTimeModel):
     name        = models.CharField(max_length=120)
     capacity    = models.IntegerField(default=0)
     people      = models.ManyToManyField(DetailedUser, blank=True)
-    roomtype    = models.CharField(choices=ROOMTYPE, max_length=50, blank=True)
+    roomtype    = models.CharField(choices=ROOMTYPE, max_length=120, blank=True)
     gender      = models.CharField(choices=GENDER, max_length=6, blank=True)
     full        = models.BooleanField(default=False)
 
