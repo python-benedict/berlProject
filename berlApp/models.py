@@ -6,6 +6,7 @@ GENDER = [
     ('2', 'Female')
 ]
 
+
 class BaseTimeModel(models.Model):
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now_add=True)
@@ -18,6 +19,9 @@ class DetailedUser(BaseTimeModel):
     MRoom2mw = "TWO IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE"
     MRoom3mw = "TWO IN A ROOM SELF-CONTAIN WITH KITCHEN AND HALL"
     MRoom4mw = "TWO IN A ROOM SELF-CONTAIN WITH CHAMBER AND HALL"
+
+    choose_myself = 'Automatic room allocation'
+    choose_for_me = 'Manual room Selection'
     
     ROOMTYPE = [
         (MRoom1mw, MRoom1mw),
@@ -26,12 +30,17 @@ class DetailedUser(BaseTimeModel):
         (MRoom4mw, MRoom4mw)
     ]
 
+    ROOMSTATUS = [
+        (choose_myself, choose_myself),
+        (choose_for_me, choose_for_me)
+    ]
+
     fullName    = models.CharField(max_length=100)
     email       = models.EmailField()
     studentId   = models.IntegerField()
     roomtype    = models.CharField(choices=ROOMTYPE, max_length=120, blank=True)
     gender      = models.CharField(choices=GENDER, max_length=6, blank=True)
-    room_choosing_status    = models.CharField(max_length=3)
+    room_choosing_status    = models.CharField(choices=ROOMSTATUS ,max_length=50)
     bio         = models.TextField()
 
     def __str__(self):

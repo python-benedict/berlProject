@@ -3,12 +3,13 @@ from .models import *
 from .forms import DetailedUserForm
 # Create your views here.
 def detaileduser(request):
-    rooms       = Room.objects.all()
+    form = DetailedUserForm()
 
     if request.method == "POST":
         form = DetailedUserForm(request.POST)
         if form.is_valid():
             form.save()
+
     context ={
         'form':form
     }

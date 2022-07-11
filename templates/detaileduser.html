@@ -9,33 +9,7 @@
 <body>
     <form method="POST">
         {% csrf_token %}
-        <label for="fullname">Enter Your Full Name:</label><br><br>
-        <input type="text" name="fullname" placeholder="Enter Full Name" required><br>
-        <label for="email">Enter Your Email</label><br><br>
-        <input type="email" required name="email" placeholder="Enter Email"><br>
-        <label for="studentId">Enter your Student ID </label><br><br>
-        <input type="number" required name="studentId" placeholder="Enter Student Id"><br>
-        <label for="gender">What gender are you</label><br><br>
-        <select name="gender" required>
-            <option value="">select gender</option>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-        </select>
-        <label for="rootype">What type of room did you choose</label><br><br>
-        <select name="roomId" required>
-            <option value="">select room</option>
-            {% for room in rooms %}
-            <option value="{{room.id}}">{{ room.name }}</option>
-            {% endfor %}
-            
-        </select>
-        <label for="room_choosing_status">How do you want to choose your room</label><br><br>
-        <select name="room_choosing_status" >
-            <option value="Choose for me">Choose for me</option>
-            <option value="Choose it myself">Choose it myself</option>
-        </select>
-        <label for="bio">Tells us about you</label><br><br>
-        <textarea name="bio"cols="30" rows="10"></textarea><br><br>
+        {{form}}
         <button type="submit">Submit</button>
     </form>
 </body>
