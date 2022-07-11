@@ -14,3 +14,4 @@ def detaileduser(request):
         if DetailedUser.objects.filter(roomtype='FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE'):
             MRoom1mw.name.add(detaileduser)
     return render(request, 'detaileduser.html')
+    
