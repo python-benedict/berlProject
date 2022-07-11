@@ -26,3 +26,6 @@ def detaileduser(request):
         'form':form
     }
     return render(request, 'detaileduser.html', context)
+
+def chooseroom(request):
+    return render(request, 'chooseroom.html')
