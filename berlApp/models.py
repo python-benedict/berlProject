@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 MRoom1mw = "FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE"
@@ -38,7 +39,7 @@ class DetailedUser(BaseTimeModel):
         (choose_myself, choose_myself),
         (choose_for_me, choose_for_me)
     ]
-
+    user        = models.ForeignKey(User, on_delete=models.CASCADE)
     fullName    = models.CharField(max_length=100)
     email       = models.EmailField()
     studentId   = models.IntegerField()
