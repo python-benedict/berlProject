@@ -28,4 +28,10 @@ def detaileduser(request):
     return render(request, 'detaileduser.html', context)
 
 def chooseroom(request):
-    return render(request, 'chooseroom.html')
+    rooms = Room.objects.all().iterator(chunk_size=50)
+    for room in rooms:
+        if room.full == False:
+            room_available = room
+
+    context={'room':room}
+    return render(request, 'chooseroom.html', context)
