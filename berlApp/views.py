@@ -15,6 +15,9 @@ def detaileduser(request):
             if user.room_choosing_status == DetailedUser.choose_for_me:
                 if (auto_check_add_user_to_room(user)):
                     messages.success(request, "Successfully allocated to a room")
+                else:
+                    messages.info(request, 'We were not able to find a perfect room for you so manually choose one')
+            #Redirecting user to manual room selection page
             else:
                 pass        
 
