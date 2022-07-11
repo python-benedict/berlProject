@@ -11,7 +11,6 @@ def detaileduser(request):
         room_choosing_status = request.POST['room_choosing_status']
         bio         = request.POST['bio']
         detaileduser = DetailedUser.objects.create(fullName=fullName, email=email, studentId=studentId, gender=gender, roomtype=roomtype, room_choosing_status=room_choosing_status, bio=bio)
-        if DetailedUser.objects.filter(roomtype='FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE'):
+        if DetailedUser.objects.filter(roomtype='FOUR IN A ROOM SELF-CONTAIN WITH BALCONY KICHENNETTE').exists():
             MRoom1mw.name.add(detaileduser)
     return render(request, 'detaileduser.html')
-    

@@ -11,8 +11,12 @@ class DetailedUser(models.Model):
     room_choosing_status    = models.CharField(max_length=3)
     bio         = models.TextField()
 
+    def __str__(self):
+        return self.fullName
+
 class MRoom1mw(models.Model):
     name = models.ManyToManyField(DetailedUser)
+
 
 class MRoom2mw(models.Model):
     name = models.ManyToManyField(DetailedUser)
