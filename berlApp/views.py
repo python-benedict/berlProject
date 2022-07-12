@@ -56,7 +56,9 @@ def detaileduser(request):
     if request.method == "POST":
         form = DetailedUserForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.user = request.user
+            user.save()
             # Check for auto room allocation or manual 
             if user.room_choosing_status == DetailedUser.choose_for_me:
                 if (auto_check_add_user_to_room(user)):
@@ -66,7 +68,7 @@ def detaileduser(request):
                     return redirect('chooseroom') 
             #Redirecting user to manual room selection page
             else:
-                pass   
+                return redirect('chooseroom')   
 
 
     context ={
@@ -74,14 +76,25 @@ def detaileduser(request):
     }
     return render(request, 'detaileduser.html', context)
 
+
 @login_required
 def chooseroom(request):
     rooms = Room.objects.filter(full=False).iterator(chunk_size=50)
-    context={'room':rooms}
+    
     if request.method == 'POST':
-        roomchoose = request.POST['roomchoose']
-        for room in rooms:
-            if room.name == roomchoose:
-                room.people.add(request.user)
+        selectedRoomId  = request.POST['roomchoose']
+        detaileduser    = DetailedUser.objects.get(user=request.user)
+        room            = Room.objects.get(id=selectedRoomId)
+        room.people.add(detaileduser)
+        messages.success(request, "Successfully placed in a room")
+        # Check and tick room to full 
+        if room.people.count() == room.capacity:
+            room.full = True 
+            room.save() 
+        else:
+            messages.info(request, 'Rooms are still available')
+    else:
+        messages.info(request, 'rooms are still available')
 
-    return render(request, 'chooseroom.html', context)
+    return render(request, 'chooseroom.html', {'room':rooms})
+

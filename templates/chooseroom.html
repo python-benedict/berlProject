@@ -7,18 +7,20 @@
     <title>Choose Your Room</title>
 </head>
 <body>
-        {% for message in messages%}
+
             <p style="color: red;">{{message}}</p>
-        {% endfor %}
+            <p style="color: green;">{{roomgot}}</p>
+            
+
         <br><br>
 
         <p>Select from the rooms available for you</p>
         <form method="post">
-            {% csrf_token%}
+            {% csrf_token %}
             <select name="roomchoose" required>
                 <option value="">Select Room</option>
                 {% for room in room %}
-                    <option value="{{room}}">{{room}}</option>
+                    <option value="{{room.id}}">{{room}}</option>
                 {% endfor %}
             </select><br><br>
             <input type="submit">

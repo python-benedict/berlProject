@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class DetailedUserForm(forms.ModelForm):
     class Meta:
         model = DetailedUser
-        fields = "__all__"
+        exclude = ('user',)
 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
