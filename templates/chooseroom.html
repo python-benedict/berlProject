@@ -7,11 +7,12 @@
     <title>Choose Your Room</title>
 </head>
 <body>
-
+        {% for message in messages%}
             <p style="color: red;">{{message}}</p>
-            <p style="color: green;">{{roomgot}}</p>
-            
-
+        {% endfor %}
+        {% for people in room_members%}
+            <p style="color: red;">{{people}} -- {{people.bio}}</p>
+        {% endfor %}
         <br><br>
 
         <p>Select from the rooms available for you</p>

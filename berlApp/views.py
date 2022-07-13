@@ -10,11 +10,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+#This is a register function
 def register(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
         if form.is_valid():
+            # Here i am saving a user and putting it in a container
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful." )
@@ -23,7 +24,7 @@ def register(request):
     form = NewUserForm()
     return render (request=request, template_name="register.html", context={"register_form":form})
 
-
+# This is a login function
 def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
@@ -61,8 +62,8 @@ def detaileduser(request):
             user.save()
             # Check for auto room allocation or manual 
             if user.room_choosing_status == DetailedUser.choose_for_me:
-                if (auto_check_add_user_to_room(user)):
-                    messages.success(request, "Successfully allocated to a room")
+                if (auto_check_add_user_to_room(user, request)):
+                    messages.success(request, "")
                 else:
                     messages.info(request, 'We were not able to find a perfect room for you so manually choose one')
                     return redirect('chooseroom') 
@@ -80,21 +81,22 @@ def detaileduser(request):
 @login_required
 def chooseroom(request):
     rooms = Room.objects.filter(full=False).iterator(chunk_size=50)
-    
+    room_members =[]
     if request.method == 'POST':
         selectedRoomId  = request.POST['roomchoose']
         detaileduser    = DetailedUser.objects.get(user=request.user)
         room            = Room.objects.get(id=selectedRoomId)
         room.people.add(detaileduser)
-        messages.success(request, "Successfully placed in a room")
+        room_members=room.people.all()
+        messages.success(request, "Successfully placed in room %s with" %(room.name))
         # Check and tick room to full 
         if room.people.count() == room.capacity:
             room.full = True 
-            room.save() 
-        else:
-            messages.info(request, 'Rooms are still available')
-    else:
-        messages.info(request, 'rooms are still available')
+            room.save()
 
-    return render(request, 'chooseroom.html', {'room':rooms})
+    context = {
+        'room':rooms,
+        'room_members':room_members
+    }
+    return render(request, 'chooseroom.html', context)
 
